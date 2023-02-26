@@ -79,6 +79,3 @@ router.delete('/:id', (req, res) => {
 });
 
 export { router };
-
-
-//create auth token
