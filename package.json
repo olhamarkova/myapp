@@ -1,0 +1,29 @@
+{
+  "name": "myapp_2",
+  "version": "1.0.0",
+  "description": "work with routers",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "serve": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olhamarkova/myapp.git"
+  },
+  "author": "Olha Markova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olhamarkova/myapp/issues"
+  },
+  "homepage": "https://github.com/olhamarkova/myapp#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
