@@ -8,19 +8,11 @@ router.use(uuidv4);
 
 router.get('/', async (req, res) => {
   try {
-    const { type, skip, limit=5 } = req.query;
-    if (type || limit || skip) { 
-    const courses = await CoursesModel.find({type}).limit(limit).skip(skip);
-      res.status(200).json({
-          courses,
-        });
-    }
-    else {
-    const courses = await CoursesModel.find();
+    const { type, skip = 0, limit = 5 } = req.query; 
+    const courses = await CoursesModel.find(!type ? {} : { type }).limit(limit).skip(skip);
     res.status(200).json({
-        courses,
-      });
-    };
+      courses,
+    });
   } catch (err) {
     res.status(404).json({
       message: err.message,
@@ -57,3 +49,5 @@ router.post('/', async (req, res) => {
 });
 
 export { router };
+
+//put request
