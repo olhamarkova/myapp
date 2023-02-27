@@ -8,13 +8,14 @@ router.use(uuidv4);
 
 router.get('/', async (req, res) => {
   try {
-    const { type, skip, limit } = req.query;
-    if (type) { 
-    const coursesType = await CoursesModel.find({type});
+    const { type, skip, limit=5 } = req.query;
+    if (type || limit || skip) { 
+    const courses = await CoursesModel.find({type}).limit(limit).skip(skip);
       res.status(200).json({
-          coursesType,
+          courses,
         });
-    } else {
+    }
+    else {
     const courses = await CoursesModel.find();
     res.status(200).json({
         courses,
