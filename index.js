@@ -1,19 +1,22 @@
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
-import { MainRouter, LoginRouter, CatalogRouter, UsersRouter } from './routes/index.js';
+import { MainRouter, LoginRouter, CoursesRouter, UsersRouter } from './routes/index.js';
 import requestTime from './middleware.js';
 import mongoose from 'mongoose';
 import UserSchema from './schemas/users.model.js';
+import CoursesSchema from './schemas/courses.model.js';
 
 const app = express();
 const port = 3000;
 let User = null;
+let Course = null;
 //const __dirname = path.resolve();
 
 async function start () {
   try {
     User = mongoose.model("users", UserSchema);
+    Course = mongoose.model("courses", CoursesSchema);
     
     await mongoose.connect('mongodb://admin:123456@127.0.0.1:27017');
     console.log(mongoose.connection.name);
@@ -35,7 +38,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.use('/', MainRouter);
 app.use('/login', LoginRouter);
-app.use('/catalog', CatalogRouter);
+app.use('/courses', CoursesRouter);
 app.use('/users', UsersRouter);
 //app.use(requestTime);
 
@@ -52,3 +55,4 @@ app.use(function(req, res, next) {
 }); */
 
 export const UserModel = User;
+export const CoursesModel = Course;
