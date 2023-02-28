@@ -4,7 +4,7 @@ const schema = new Schema({
   title: {
     type: String,
     required: false,
-    maxlength: 255,
+    maxlength: 355,
     minlength: 2,
     trim: true
   },

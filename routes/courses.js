@@ -21,10 +21,31 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id; 
+    const course = await CoursesModel.findOne({_id: id});
+    if(!course) {
+      res.status(404).json({
+        message: "This course is not exists"
+      });
+    } else {
+    res.status(200).json({
+      course,
+    });
+  } 
+} catch (err) {
+    res.status(404).json({
+      message: err.message,
+      content: null
+    });
+  }
+});
+
 router.post('/', async (req, res) => {
   try {
     const { title, autor, resourse, isFree, type } = req.body;
-    if (!title || !autor|| !resourse || !isFree || !type) throw new Error("Need to provide all required fields.");
+    if (!title || !autor|| !resourse || !type) throw new Error("Need to provide all required fields.");
     const course = await CoursesModel.create({ 
       title,
       autor,
@@ -48,6 +69,45 @@ router.post('/', async (req, res) => {
   }
 });
 
-export { router };
+router.put('/:id', async (req, res) => {
+  try {
+    if(!req.body) return res.sendStatus(400);
+    const { title, autor, resourse, isFree, type } = req.body;
+    const id = req.params.id;
+    const newCourse = { title, autor, resourse, isFree, type, };
+    const course = await CoursesModel.findOneAndUpdate( {_id: id}, newCourse, {new: true} );
+    if(course) res.send(course);
+} catch(err) {
+    res.status(404).json({
+      reqId: req.uuidv4,
+      message: err.message,
+      data: null,
+      time: req.requestTime,
+    });
+  }
+});
 
-//put request
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const course = await CoursesModel.findOneAndRemove( {_id: id} );
+    if(!course) {
+      res.status(400).json({
+        message: "Wrong ID or course is not exsits"
+      });
+    } else {
+      res.status(200).json({
+        message: "Course was successfuly deleted" 
+    }); 
+  }
+} catch(err) {
+    res.status(404).json({
+      reqId: req.uuidv4,
+      message: err.message,
+      data: null,
+      time: req.requestTime,
+    });
+  }
+});
+
+export { router };
