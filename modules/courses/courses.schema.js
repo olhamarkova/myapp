@@ -5,29 +5,27 @@ const schema = new Schema({
     type: String,
     required: false,
     maxlength: 355,
-    minlength: 2,
+    minlength: 1,
     trim: true
   },
-  autor: {
+  author: {
     type: String,
     required: false,
     maxlength: 50,
-    minlength: 4,
+    minlength: 1,
     trim: true
   },
   isFree: {
     type: Boolean,
     required: false,
-    maxlength: 6,
-    minlength: 6,
     trim: true,
     default: null,
   },
-  resourse: {
+  site: {
     type: String,
     required: false,
     maxlength: 355,
-    minlength: 6,
+    minlength: 1,
     trim: true
   },
   type: {
