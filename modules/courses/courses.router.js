@@ -29,7 +29,7 @@ export default class CoursesRouter {
         });
       } catch (err) {
         res.status(404).json({
-          message: err.message,
+          message: "Something went wrong. Please check and try again",
           content: null
         });
       }
@@ -48,7 +48,7 @@ export default class CoursesRouter {
       } 
     } catch (err) {
         res.status(404).json({
-          message: "Wrong ID or router is not exists. Please check and try again",
+          message: "Something went wrong. Please check and try again",
           content: null
         });
       }
@@ -75,7 +75,7 @@ export default class CoursesRouter {
       } catch(err) {
         res.status(404).json({
           reqId: req.uuidv4,
-          message: err.message,
+          message: "Something went wrong. Please check and try again",
           data: null,
         });
       }
@@ -93,7 +93,7 @@ export default class CoursesRouter {
     } catch(err) {
         res.status(404).json({
           reqId: req.uuidv4,
-          message: err.message,
+          message: "Something went wrong. Please check and try again",
           data: null,
         });
       }
@@ -117,7 +117,7 @@ export default class CoursesRouter {
     } catch(err) {
         res.status(404).json({
           reqId: req.uuidv4,
-          message: err.message,
+          message: "Something went wrong. Please check and try again",
           data: null,
         });
       }
