@@ -22,7 +22,7 @@ export default class CoursesRouter {
   getAll() {
     this.router.get('/', async (req, res) => {
       try {
-        const { type, skip = 0, limit = 5 } = req.query; 
+        const { type, skip = 0, limit = 10 } = req.query; 
         const courses = await this.controller.getAll(type, limit, skip);
         res.status(200).json({
           courses,
