@@ -37,9 +37,11 @@ export default class CoursesModel {
   }
 
   async delete(id) {
-    const data = await this.model.deleteOne( {_id: id} );
+    const data = await this.model.deleteOne( {_id: id, savable: false } );
+    if(data.deletedCount === 0) throw new Error("This course can't be deleted");
     return this.defaultDto(data);
-  }
+    }
+  
 
   defaultDto(payload) {
     const data = {

@@ -33,6 +33,12 @@ const schema = new Schema({
     required: true,
     default: null
   },
+  savable: {
+    type: Boolean,
+    required: false,
+    trim: true,
+    default: false,
+  }
 });
 
 export default schema;

@@ -58,7 +58,7 @@ export default class CoursesRouter {
   create() {
     this.router.post('/', async (req, res) => {
       try {
-        const { title, author, site, isFree, type } = req.body;
+        const { title, author, site, isFree, type, savable } = req.body;
         if (!title || !author|| !site || !type) throw new Error("Need to provide all required fields.");
         const course = await this.controller.create({ 
           title,
@@ -66,6 +66,7 @@ export default class CoursesRouter {
           site,
           isFree,
           type,
+          savable
         });
         res.status(201).json({
           reqId: req.uuidv4,
@@ -93,7 +94,7 @@ export default class CoursesRouter {
     } catch(err) {
         res.status(404).json({
           reqId: req.uuidv4,
-          message: "Something went wrong. Please check and try again",
+          message: err.message,
           data: null,
         });
       }
@@ -117,7 +118,7 @@ export default class CoursesRouter {
     } catch(err) {
         res.status(404).json({
           reqId: req.uuidv4,
-          message: "Something went wrong. Please check and try again",
+          message: err.message,
           data: null,
         });
       }
