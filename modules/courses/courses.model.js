@@ -16,6 +16,11 @@ export default class CoursesModel {
     return data.map(this.defaultDto);
   }
 
+  async getCount(type) {
+    const count = await this.model.count(!type ? {} : { type });
+    return count;
+  }
+
   async create(payload) {
     const data = await this.model.create(payload);
     return this.defaultDto(data);

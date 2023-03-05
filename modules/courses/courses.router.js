@@ -23,9 +23,10 @@ export default class CoursesRouter {
     this.router.get('/', async (req, res) => {
       try {
         const { type, skip = 0, limit = 10 } = req.query; 
-        const courses = await this.controller.getAll(type, limit, skip);
+        const { courses, count } = await this.controller.getAll(type, limit, skip);
         res.status(200).json({
           courses,
+          count,
         });
       } catch (err) {
         res.status(404).json({
@@ -58,7 +59,7 @@ export default class CoursesRouter {
   create() {
     this.router.post('/', async (req, res) => {
       try {
-        const { title, author, site, isFree, type, savable } = req.body;
+        const { title, author, site, isFree, type } = req.body;
         if (!title || !author|| !site || !type) throw new Error("Need to provide all required fields.");
         const course = await this.controller.create({ 
           title,
@@ -66,7 +67,6 @@ export default class CoursesRouter {
           site,
           isFree,
           type,
-          savable
         });
         res.status(201).json({
           reqId: req.uuidv4,

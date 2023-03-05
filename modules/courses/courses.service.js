@@ -9,8 +9,13 @@ export default class CoursesService {
     return this.model.getById(filter);
   }
 
-  getAll(type, limit, skip) {
-    return this.model.getAll(type, limit, skip);
+  async getAll(type, limit, skip) {
+    const courses = await this.model.getAll(type, limit, skip);
+    const count = await this.model.getCount(type);
+    return {
+      courses,
+      count,
+    };
   }
 
   create(payload) {
