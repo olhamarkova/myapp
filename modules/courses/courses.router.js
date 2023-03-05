@@ -22,13 +22,14 @@ export default class CoursesRouter {
   getAll() {
     this.router.get('/', async (req, res) => {
       try {
-        const { type, skip = 0, limit = 10 } = req.query; 
-        const { courses, count } = await this.controller.getAll(type, limit, skip);
+        const { filter, skip = 0, limit = 10 } = req.query; 
+        const { courses, count } = await this.controller.getAll( filter, limit, skip);
         res.status(200).json({
           courses,
           count,
         });
       } catch (err) {
+        console.log(err);
         res.status(404).json({
           message: "Something went wrong. Please check and try again",
           content: null

@@ -11,13 +11,13 @@ export default class CoursesModel {
     return this.defaultDto(data);
   }
 
-  async getAll(type, limit, skip) {
-    const data = await this.model.find(!type ? {} : { type }).limit(limit).skip(skip);
+  async getAll(filterObj, limit, skip) {
+    const data = await this.model.find(filterObj).limit(limit).skip(skip);
     return data.map(this.defaultDto);
   }
 
-  async getCount(type) {
-    const count = await this.model.count(!type ? {} : { type });
+  async getCount(filterObj) {
+    const count = await this.model.count(filterObj);
     return count;
   }
 

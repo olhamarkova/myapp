@@ -9,8 +9,8 @@ export default class CoursesRouter {
     return this.service.getById(filter);
   }
 
-  getAll(type, limit, skip) {
-    return this.service.getAll(type, limit, skip);
+  getAll(filter, limit, skip) {
+    return this.service.getAll(filter, limit, skip);
   }
 
   create(payload) {
