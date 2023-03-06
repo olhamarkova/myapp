@@ -15,8 +15,8 @@ export default class CoursesService {
   }
 
   async getAll(filter, limit, skip) {
-    const filterObj = this.parseFilter(filter);
-    console.log("[filterObj]", filterObj);
+    //throw new Error("my awesome error");
+    const filterObj = this.parseFilter(filter); // TODO: bug here
     const courses = await this.model.getAll(filterObj, limit, skip);
     const count = await this.model.getCount(filterObj);
     return {
@@ -26,14 +26,19 @@ export default class CoursesService {
   }
 
   parseFilter(filter){
-    const filterParams = filter.split(',');
-    return filterParams.reduce((acc, el) => {
-      const paramValues = el.split(':');
-      let key = null;
-      if (this.modelMapping.has(paramValues[0])) key = this.modelMapping.get(paramValues[0]);
-      if (key) acc[key] = paramValues[1];
-      return acc;
-    }, {});
+    try {
+      const filterParams = filter.split(',');
+      return filterParams.reduce((acc, el) => {
+        const paramValues = el.split(':');
+        let key = null;
+        if (this.modelMapping.has(paramValues[0])) key = this.modelMapping.get(paramValues[0]);
+        if (key) acc[key] = paramValues[1];
+        return acc;
+      }, {});
+    } catch(err) {
+      return {};
+    }
+    
   }
 
   create(payload) {
@@ -48,3 +53,4 @@ export default class CoursesService {
     return this.model.delete(id);
   }
 }
+

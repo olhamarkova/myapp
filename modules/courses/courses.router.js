@@ -1,12 +1,14 @@
 import CoursesController from './courses.controller.js';
 import uuidv4 from '../../middleware/guid.js';
 import express from 'express';
+import ErrorInterceptor from '../../services/error-iterceptor.service.js';
 
 export default class CoursesRouter {
   constructor() {
     this.router = express.Router();
     this.router.use(uuidv4);
     this.controller = new CoursesController();
+    this.ErrorInterceptor = ErrorInterceptor;
     this.init();
   }
 
@@ -16,24 +18,20 @@ export default class CoursesRouter {
     this.create();
     this.update();
     this.delete();
-
   } 
 
   getAll() {
     this.router.get('/', async (req, res) => {
       try {
-        const { filter, skip = 0, limit = 10 } = req.query; 
-        const { courses, count } = await this.controller.getAll( filter, limit, skip);
+        const { filter, skip = 0, limit = 10 } = req.query;
+        const { courses, count, message, fact } = await this.controller.getAll( filter, limit, skip);
+        if (fact && message) throw { fact, message };
         res.status(200).json({
           courses,
           count,
         });
       } catch (err) {
-        console.log(err);
-        res.status(404).json({
-          message: "Something went wrong. Please check and try again",
-          content: null
-        });
+        res.status(404).json(this.ErrorInterceptor.defaultInterceptor(err, req));
       }
     });
   }
@@ -50,6 +48,7 @@ export default class CoursesRouter {
       } 
     } catch (err) {
         res.status(404).json({
+          reqId: req.uuidv4,
           message: "Something went wrong. Please check and try again",
           content: null
         });
