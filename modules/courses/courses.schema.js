@@ -23,7 +23,7 @@ const schema = new Schema({
   },
   site: {
     type: String,
-    required: false,
+    required: true,
     maxlength: 355,
     minlength: 1,
     trim: true
@@ -31,7 +31,7 @@ const schema = new Schema({
   type: {
     type: String,
     required: true,
-    default: null
+    enum: ["AQA", "QA", "ENG"],
   },
   savable: {
     type: Boolean,

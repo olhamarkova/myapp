@@ -3,7 +3,7 @@ export default class ErrorInterceptor {
     return {
       reqId: req.uuidv4,
       message: err.message,
-      fact: err.fact || "nothing special today.",
+      fact: err.fact || "Nothing special today.",
     };
   }
 }

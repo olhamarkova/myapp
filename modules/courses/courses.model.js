@@ -28,7 +28,7 @@ export default class CoursesModel {
 
   async update(id, newCourse) {
     const data = await this.model.findById(id);
-    if (!data) throw new Error("Wrong id.");
+    if (!data) throw new Error("Wrong ID");
     let check;
     Object.values(newCourse).forEach((el) => {
       if (typeof el === 'undefined') {

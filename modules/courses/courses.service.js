@@ -10,13 +10,15 @@ export default class CoursesService {
     ]);
   }
 
-  getById(filter) {
-    return this.model.getById(filter);
+  async getById(filter) {
+    //throw new Error("my awesome error");
+    const course = await this.model.getById(filter);
+    return course;
   }
 
   async getAll(filter, limit, skip) {
     //throw new Error("my awesome error");
-    const filterObj = this.parseFilter(filter); // TODO: bug here
+    const filterObj = this.parseFilter(filter); 
     const courses = await this.model.getAll(filterObj, limit, skip);
     const count = await this.model.getCount(filterObj);
     return {
@@ -41,12 +43,14 @@ export default class CoursesService {
     
   }
 
-  create(payload) {
-    return this.model.create(payload);
+  async create(payload) {
+    const data = await this.model.create(payload);
+    return data;
   }
 
-  update(id, newCourse) {
-    return this.model.update(id, newCourse);
+  async update(id, newCourse) {
+    //throw new Error("my awesome error");
+    return await this.model.update(id, newCourse);
   }
 
   delete(id) {

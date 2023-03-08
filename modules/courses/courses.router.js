@@ -27,6 +27,7 @@ export default class CoursesRouter {
         const { courses, count, message, fact } = await this.controller.getAll( filter, limit, skip);
         if (fact && message) throw { fact, message };
         res.status(200).json({
+          reqId: req.uuidv4,
           courses,
           count,
         });
@@ -40,18 +41,14 @@ export default class CoursesRouter {
     this.router.get('/:id', async (req, res) => {
       try {
         const id = req.params.id; 
-        const course = await this.controller.getById(id);
-        if(course) {
+        const { course, message, fact } = await this.controller.getById(id);
+        if(fact && message) throw { fact, message };
         res.status(200).json({
+          reqId: req.uuidv4,
           course,
         });
-      } 
-    } catch (err) {
-        res.status(404).json({
-          reqId: req.uuidv4,
-          message: "Something went wrong. Please check and try again",
-          content: null
-        });
+      } catch (err) {
+        res.status(404).json(this.ErrorInterceptor.defaultInterceptor(err, req));
       }
     });
   }
@@ -60,25 +57,25 @@ export default class CoursesRouter {
     this.router.post('/', async (req, res) => {
       try {
         const { title, author, site, isFree, type } = req.body;
-        if (!title || !author|| !site || !type) throw new Error("Need to provide all required fields.");
-        const course = await this.controller.create({ 
+        const { course, message, fact } = await this.controller.create({ 
           title,
           author,
           site,
           isFree,
           type,
         });
+        if(fact && message) throw { fact, message };
         res.status(201).json({
           reqId: req.uuidv4,
           message: "Course is created",
           data: { course },
         });
       } catch(err) {
-        res.status(404).json({
-          reqId: req.uuidv4,
-          message: "Something went wrong. Please check and try again",
-          data: null,
-        });
+        let status = 404;
+        if(err.message === "Need to provide all required fields.") {
+          status = 400;
+        }
+        res.status(status).json(this.ErrorInterceptor.defaultInterceptor(err, req));
       }
     });
   }
@@ -89,14 +86,15 @@ export default class CoursesRouter {
         const { title, author, site, isFree, type } = req.body;
         const id = req.params.id;
         const newCourse = { title, author, site, isFree, type, };
-        const course = await this.controller.update(id, newCourse);
-        if(course) res.send(course);
-    } catch(err) {
-        res.status(404).json({
+        const { updatedCourse, message, fact } = await this.controller.update(id, newCourse);
+        if(fact && message) throw { fact, message };
+        res.status(200).json({
           reqId: req.uuidv4,
-          message: err.message,
-          data: null,
+          message: "Course was updated",
+          data: { updatedCourse },
         });
+    } catch(err) {
+      res.status(404).json(this.ErrorInterceptor.defaultInterceptor(err, req));
       }
     });
   }
@@ -105,22 +103,14 @@ export default class CoursesRouter {
     this.router.delete('/:id', async (req, res) => {
       try {
         const id = req.params.id;
-        const course = await this.controller.delete(id);
-        if(!course) {
-          res.status(400).json({
-            message: "Wrong ID or course is not exsits"
-          });
-        } else {
-          res.status(200).json({
-            message: "Course was successfuly deleted" 
-        }); 
-      }
-    } catch(err) {
-        res.status(404).json({
+        const { message, fact } = await this.controller.delete(id);
+        if(fact && message) throw { fact, message };
+        res.status(200).json({
           reqId: req.uuidv4,
-          message: err.message,
-          data: null,
-        });
+          message: "Course was successfuly deleted", 
+        }); 
+    } catch(err) {
+      res.status(404).json(this.ErrorInterceptor.defaultInterceptor(err, req));
       }
     });
   }
