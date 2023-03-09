@@ -10,7 +10,6 @@ export default class CoursesRouter {
   async getById(filter) {
     try {
       const course = await this.service.getById(filter);
-      console.log("[controler!]", course);
       return { course };
     } catch(err) {
       const fact = await this.uselessFactsServise.getFact();

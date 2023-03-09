@@ -49,7 +49,6 @@ export default class CoursesService {
   }
 
   async update(id, newCourse) {
-    //throw new Error("my awesome error");
     return await this.model.update(id, newCourse);
   }
 
