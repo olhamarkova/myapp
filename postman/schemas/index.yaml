@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Courses API
+  description: Simple API with QA courses
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/
+paths:
+  /courses:
+    get:
+      summary: Returns a list of courses.
+      description: Without any parameters, returns all courses in database
+      responses:
+        '200':    # status code
+          description: A JSON array of objects
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: object
+    post:
+      summary: Creates a new course.
+      description: Creates a new course and returns an object
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:          # <!--- form field name
+                  type: string
+                author:    # <!--- form field name
+                  type: string
+                isFree:
+                  type: boolean
+                site:
+                  type: string
+                type:
+                  type: string
+              required:
+                - title
+                - author
+                - type
+                - site
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: object
+
+  /courses/{id}:                
+    get:
+      summary: Returns course by ID.
+      description: Returns course by ID
+      parameters:
+        - name: id
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                type: object
+                items: 
+                  type: object
+    put:
+      summary: Update course by ID.
+      description: Find course by ID and update info, returns updated course info
+      parameters:
+        - name: id
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:          # <!--- form field name
+                  type: string
+                author:    # <!--- form field name
+                  type: string
+                isFree:
+                  type: boolean
+                site:
+                  type: string
+                type:
+                  type: string
+              required:
+                - title
+                - author
+                - type
+                - site      
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                type: object
+                items: 
+                  type: object
+    delete:
+      summary: Delete course by ID.
+      description: Delete course by ID and returns message
+      parameters:
+        - name: id
+          in: path
+          description: Course ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                type: object
+                items: 
+                  type: object      
