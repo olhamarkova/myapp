@@ -5,7 +5,6 @@ id = 098654ba-0806-42a0-ba3e-e624ac510390
 
 [relations.collections]
 rootDirectory = postman/collections
-files[] = {"id":"24716912-1a586926-91ac-498e-8f1a-dab495543c06","path":"Courses API.json","metaData":{}}
 
 [relations.collections.metaData]
 

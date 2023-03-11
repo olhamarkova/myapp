@@ -25,8 +25,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
+              $ref: '#/components/examples/courses'
               type: object
               properties:
                 title:          # <!--- form field name
@@ -46,7 +47,7 @@ paths:
                 - site
       responses:
         '201':
-          description: Created
+          description: Course is created
           content:
             application/json:
               schema: 
@@ -101,6 +102,7 @@ paths:
                   type: string
                 type:
                   type: string
+                  enum: ["AQA", "QA", "ENG"]
               required:
                 - title
                 - author
@@ -133,4 +135,16 @@ paths:
               schema: 
                 type: object
                 items: 
-                  type: object      
+                  type: object   
+components:
+  examples:
+    courses:  # <--- example name
+      summary: An example of a course
+      value:
+        # vv Actual payload goes here vv
+        title: "Some course"
+        author: "John Doe"
+        isFree: true
+        site: "http://example.com"
+        type: "QA"
+
