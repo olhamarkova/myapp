@@ -3,14 +3,14 @@ import { Schema, model, ObjectId } from 'mongoose';
 const schema = new Schema({
   title: {
     type: String,
-    required: false,
+    required: true,
     maxlength: 355,
     minlength: 1,
     trim: true
   },
   author: {
     type: String,
-    required: false,
+    required: true,
     maxlength: 50,
     minlength: 1,
     trim: true
