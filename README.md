@@ -6,11 +6,11 @@ The API is available at `...`
 
 ## Endpoints
 
-- [Get all courses](#Get courses)
-- [Get a course by ID](#Get course by ID)
-- [Create a course](#Create course)
-- [Update a course](#Update course)
-- [Delete a course](#Update course)
+- [Get all courses](#get-all-courses)
+- [Get a course by ID](#get-a-course-by-id)
+- [Create a course](#create-a-course)
+- [Update a course](#update-a-course)
+- [Delete a course](#delete-a-course)
 
 ### Get all courses
 
@@ -169,7 +169,7 @@ Example request body:
 
 Deletes a course.
 
-**`DELETE /courses/:d`**
+**`DELETE /courses/:id`**
 
 **Parameters**
 
