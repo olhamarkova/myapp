@@ -1,4 +1,4 @@
-# Simple courses API
+# Simple Courses API
 
 This API allows you to find QA, AQA and English courses for your study.
 
@@ -24,7 +24,7 @@ Returns the list of courses from all categories.
 | ----------- | ------- | ----- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `limit`  | integer  | query | No       | Specifies the number of result you want to be returned. Must be a positive number between 1 and 75. By default, only 10 courses will be displayed. |
 | `skip`   | integer | query | No       | Specifies the number of results you want to skip. Must be number between 1 and 75. By default, it will be dispayed first 10 courses.  |
-| `filter` | string | query | No       | Specifies the category of courses you want to be returned. It can be one of: type (QA, AQA, ENG), free(true or false), author(name of author). Parameters should be comma separated. Example: type:QA,free:false,author:Bogdan Stashchuk |
+| `filter` | string | query | No       | Specifies the category of courses you want to be returned. It can use all or only some of: type (QA, AQA, ENG), free(true or false), author(name of author). Parameters should be comma separated. Example: `type:QA,free:false,author:Author` |
 
 **Status codes**
 
@@ -125,7 +125,7 @@ Example request body:
 | Status code | Description                                            |
 | ----------- | ------------------------------------------------------ |
 | 201 Created | Indicates that the cart has been created successfully. |
-| 400 Bad request | Indicates that there are problems with a body. |
+| 400 Bad request | Indicates that there are some problems with a request body. |
 
 
 ### Update a course
@@ -163,7 +163,7 @@ Example request body:
 | Status code     | Description                                                    |
 | --------------- | -------------------------------------------------------------- |
 | 200 OK  | Indicates that the course has been updated successfully.         |
-| 404 Not found   | The course could not be found or some problems with request body. |
+| 404 Not found   | The course could not be found or some problems with a request body. |
 
 ### Delete a course
 
@@ -193,3 +193,10 @@ Example response:
     "message": "Course was successfuly deleted"
 }
 ```
+
+### Technologies Used
+* [NodeJS](https://nodejs.org/) 
+* [ExpressJS](https://www.expresjs.org/) 
+* [MongoDB](https://www.mongodb.com/) 
+* [Mongoose ODM](https://mongoosejs.com/) 
+* [Axios] (https://www.npmjs.com/package/axios)
