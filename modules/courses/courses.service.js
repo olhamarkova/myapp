@@ -18,6 +18,9 @@ export default class CoursesService {
 
   async getAll(filter, limit, skip) {
     //throw new Error("my awesome error");
+    if(limit < 0) {
+      limit = Math.abs(limit);
+    }
     const filterObj = this.parseFilter(filter); 
     const courses = await this.model.getAll(filterObj, limit, skip);
     const count = await this.model.getCount(filterObj);
