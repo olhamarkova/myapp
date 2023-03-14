@@ -130,7 +130,7 @@ Example request body:
 
 ### Update a course
 
-Allows to update a course by ID.
+Allows to update a course by ID. Some types of courses can't be updated.
 
 **`PUT /courses/:id`**
 
@@ -167,7 +167,7 @@ Example request body:
 
 ### Delete a course
 
-Deletes a course.
+Deletes a course by ID. Some types of courses can't be deleted.
 
 **`DELETE /courses/:id`**
 

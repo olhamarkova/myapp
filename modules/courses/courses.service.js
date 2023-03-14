@@ -20,6 +20,13 @@ export default class CoursesService {
     //throw new Error("my awesome error");
     if(limit < 0) {
       limit = Math.abs(limit);
+    } else if ((limit - limit % 1) !== 0) {
+      limit = Math.round(limit)
+    }
+    if(skip < 0) {
+      skip = Math.abs(skip);
+    } else if ((skip - skip % 1) !== 0) {
+      skip = Math.round(skip)
     }
     const filterObj = this.parseFilter(filter); 
     const courses = await this.model.getAll(filterObj, limit, skip);
