@@ -28,19 +28,17 @@ export default class CoursesModel {
 
   async update(id, newCourse) {
     const data = await this.model.findById(id);
-    console.log("[updateModel", data);
-    if(data.savable) throw new Error("You can't change this course");
     if (!data) throw new Error("Wrong ID");
+    if(data.savable) throw new Error("This course cannot be updated");
     let check;
     Object.values(newCourse).forEach((el) => {
       if (typeof el === 'undefined') {
       return check = true
       }
     });
-    if(check) throw new Error("Hey! You should create a body!");
-    const newData = await this.model.updateOne( {_id: id}, newCourse, {new: true} );
-    const newCourse1 = await this.model.findById(id);
-    return this.defaultDto(newCourse1);
+    if(check) throw new Error("Need all required fields");
+    const newData = await this.model.findOneAndUpdate( {_id: id}, newCourse, {new: true} );
+    return this.defaultDto(newData);
   }
 
   async delete(id) {

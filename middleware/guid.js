@@ -1,6 +1,5 @@
 export default function uuidv4(req, res, next) {
-  let guid = Date.now().toString(16) + Math.random().toString(16);
-  req.uuidv4 = guid;
+  req.uuidv4 = Date.now().toString(16) + Math.random().toString(16);
   next(); 
 };
 
