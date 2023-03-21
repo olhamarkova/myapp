@@ -6,10 +6,17 @@ export default class UselessFactsServise {
   }
 
   async getFact() {
+    try {
     const urlFacts = `https://uselessfacts.jsph.pl/api/v2/facts/random`
     const res = await this.request.get(urlFacts);
-    const fact = res.data.text;
-    return fact; 
+    if(res.data) {
+      return res.data.text;
+    }
+  } catch(error){
+    res.json({
+      message: "Nothing special today"
+      });
+    } 
   } 
 }
 

@@ -60,8 +60,8 @@ export default class CoursesService {
     return await this.model.update(id, newCourse);
   }
 
-  delete(id) {
-    return this.model.delete(id);
+  async delete(id) {
+    return await this.model.delete(id);
   }
 }
 

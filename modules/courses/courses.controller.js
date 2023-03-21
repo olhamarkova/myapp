@@ -68,8 +68,4 @@ export default class CoursesRouter {
       }
     }
   }
-
-  getFact() {
-    return this.uselessFactsServise.get(); 
-  }
 }

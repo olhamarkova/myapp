@@ -36,7 +36,7 @@ export default class CoursesModel {
       return check = true
       }
     });
-    if(check) throw new Error("Need all required fields");
+    if(check) throw new Error("Needs all required fields");
     const newData = await this.model.findOneAndUpdate( {_id: id}, newCourse, {new: true} );
     return this.defaultDto(newData);
   }

@@ -1,4 +1,5 @@
 import { Schema, model, ObjectId } from 'mongoose';
+import types from './courses.enum.js';
 
 const schema = new Schema({
   title: {
@@ -31,7 +32,7 @@ const schema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ["AQA", "QA", "ENG"],
+    enum: [types.qa, types.aqa, types.eng],
   },
   savable: {
     type: Boolean,
