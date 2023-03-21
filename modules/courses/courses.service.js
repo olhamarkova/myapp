@@ -11,13 +11,11 @@ export default class CoursesService {
   }
 
   async getById(filter) {
-    //throw new Error("my awesome error");
     const course = await this.model.getById(filter);
     return course;
   }
 
   async getAll(filter, limit, skip) {
-    //throw new Error("my awesome error");
     if(limit < 0) {
       limit = Math.abs(limit);
     } else if ((limit - limit % 1) !== 0) {
