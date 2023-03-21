@@ -28,6 +28,8 @@ export default class CoursesModel {
 
   async update(id, newCourse) {
     const data = await this.model.findById(id);
+    console.log("[updateModel", data);
+    if(data.savable) throw new Error("You can't change this course");
     if (!data) throw new Error("Wrong ID");
     let check;
     Object.values(newCourse).forEach((el) => {
