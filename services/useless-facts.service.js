@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default class UselessFactsServise {
+export class UselessFactsServise {
   constructor() {
     this.request = axios;
   }

@@ -1,7 +1,7 @@
 import CoursesController from './courses.controller.js';
 import uuidv4 from '../../middleware/guid.js';
 import express from 'express';
-import ErrorInterceptor from '../../services/error-iterceptor.service.js';
+import { ErrorInterceptor } from '../../services/index.services.js';
 
 export default class CoursesRouter {
   constructor() {

@@ -1,10 +1,10 @@
 import CoursesService from './courses.service.js';
-import UselessFactsServise from '../../services/useless-facts.service.js';
+import { UselessFact } from '../../services/index.services.js';
 
 export default class CoursesRouter {
   constructor() {
     this.service = new CoursesService();
-    this.uselessFactsServise = new UselessFactsServise();
+    this.uselessFactsServise = new UselessFact();
   }
 
   async getById(filter) {

@@ -1,4 +1,4 @@
-export default class ErrorInterceptor {
+export class ErrorInterceptor {
   static defaultInterceptor(err, req, errorCode) {
     return {
       reqId: req.uuidv4,
@@ -7,5 +7,3 @@ export default class ErrorInterceptor {
     };
   }
 }
-
-//"Something went wrong. Please check your request and try again"
