@@ -2,6 +2,7 @@ import CoursesController from './courses.controller.js';
 import uuidv4 from '../../middleware/guid.js';
 import express from 'express';
 import { ErrorInterceptor } from '../../services/index.services.js';
+import { errorMessages } from "../../services/error.mes.js";
 
 export default class CoursesRouter {
   constructor() {
@@ -72,7 +73,7 @@ export default class CoursesRouter {
         });
       } catch(err) {
         let status = 404;
-        if(err.message === "Need to provide all required fields.") {
+        if(err.message === errorMessages.postMessage) {
           status = 400;
         }
         res.status(status).json(this.ErrorInterceptor.defaultInterceptor(err, req));
@@ -90,7 +91,7 @@ export default class CoursesRouter {
         if(fact && message) throw { fact, message };
         res.status(200).json({
           reqId: req.uuidv4,
-          message: "Course was updated",
+          message: errorMessages.successMessagePut,
           data: { updatedCourse },
         });
     } catch(err) {
@@ -107,7 +108,7 @@ export default class CoursesRouter {
         if(fact && message) throw { fact, message };
         res.status(200).json({
           reqId: req.uuidv4,
-          message: "Course was successfuly deleted", 
+          message: errorMessages.successMessageDel, 
         }); 
     } catch(err) {
       res.status(404).json(this.ErrorInterceptor.defaultInterceptor(err, req));

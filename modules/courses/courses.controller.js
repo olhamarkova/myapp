@@ -1,5 +1,6 @@
 import CoursesService from './courses.service.js';
 import { UselessFact } from '../../services/index.services.js';
+import { errorMessages } from "../../services/error.mes.js";
 
 export default class CoursesRouter {
   constructor() {
@@ -34,7 +35,7 @@ export default class CoursesRouter {
   async create(payload) {
     try {
       const { title, author, site, type } = payload;
-      if (!title || !author|| !site || !type) throw new Error("Need to provide all required fields.");
+      if (!title || !author|| !site || !type) throw new Error(errorMessages.postMessage);
       const course = await this.service.create(payload);
       return { course };
     } catch(err) {

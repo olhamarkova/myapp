@@ -1,5 +1,6 @@
 import schema from "./courses.schema.js";
 import mongoose from 'mongoose';
+import { errorMessages } from "../../services/error.mes.js";
 
 export default class CoursesModel {
   constructor() {
@@ -28,8 +29,8 @@ export default class CoursesModel {
 
   async update(id, newCourse) {
     const data = await this.model.findById(id);
-    if (!data) throw new Error("Wrong ID");
-    if(data.savable) throw new Error("This course cannot be updated");
+    if (!data) throw new Error(errorMessages.idMessage);
+    if(data.savable) throw new Error(errorMessages.updateMessage);
     let check;
     Object.values(newCourse).forEach((el) => {
       if (typeof el === 'undefined') {
@@ -43,7 +44,7 @@ export default class CoursesModel {
 
   async delete(id) {
     const data = await this.model.deleteOne( {_id: id, savable: false } );
-    if(data.deletedCount === 0) throw new Error("This course can't be deleted");
+    if(data.deletedCount === 0) throw new Error(errorMessages.deleteMessage);
     return this.defaultDto(data);
     }
   
