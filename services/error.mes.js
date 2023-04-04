@@ -6,7 +6,9 @@ const errorMessages = {
   idMessage: "Wrong ID. Please check and try again",
   successMessagePost: "Course was created",
   successMessagePut: "Course was updated",
-  successMesssageDel: "Course was successfuly deleted",
+  successMessageDel: "Course was successfuly deleted",
+  routeMessage: "Route not found or you should try another method",
+  factMessage: "Nothing special today",
 }
 
 export { errorMessages };

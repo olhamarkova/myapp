@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorMessages } from './error.mes.js';
 
 export class UselessFactsServise {
   constructor() {
@@ -14,7 +15,7 @@ export class UselessFactsServise {
     }
   } catch(error){
     res.json({
-      message: "Nothing special today"
+      message: errorMessages.factMessage
       });
     } 
   } 

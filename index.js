@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import CourseRouter from './modules/courses/courses.router.js'; 
+import { errorMessages } from './services/error.mes.js';
 
 const courseRouter = new CourseRouter();
 const app = express();
@@ -29,7 +30,7 @@ app.use('/courses', courseRouter.router);
 
 app.use(function(req, res, next) {
   res.status(404);
-  res.json({error: "Route not found or you should try another method"});
+  res.json({error: errorMessages.routeMessage});
   next();
  });
 
