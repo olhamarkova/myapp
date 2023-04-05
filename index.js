@@ -1,37 +1,43 @@
-import express from 'express';
-import morgan from 'morgan';
-import mongoose from 'mongoose';
-import CourseRouter from './modules/courses/courses.router.js'; 
-import { errorMessages } from './services/error.mes.js';
+import express from "express";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+import { StatusCodes } from "http-status-codes";
+dotenv.config({ path: `.${process.env.NODE_ENV}.env`, override: true });
+import { CoursesRouter } from "./modules/index.routers.js";
+import { errorMessages } from "./services/error.mes.js";
 
-const courseRouter = new CourseRouter();
+const coursesRouter = new CoursesRouter();
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
-async function start () {
+async function start() {
   try {
-    await mongoose.connect('mongodb://admin:123456@127.0.0.1:27017');
-    console.log('Connected!');
+    const connect = await mongoose.connect(process.env.CONNECTION_DB);
+    if (connect) console.log("Connected!");
     app.listen(port, () => {
       console.log(`This server has been started on port ${port}...`);
     });
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
+    return error;
   }
-};
+}
 
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/courses', courseRouter.router);
+app.use("/courses", coursesRouter.router);
 
-app.use(function(req, res, next) {
-  res.status(404);
-  res.json({error: errorMessages.routeMessage});
+app.use(function (req, res, next) {
+  res.status(StatusCodes.BAD_REQUEST);
+  res.json({ error: errorMessages.routeMessage });
   next();
- });
+});
 
- start();
+new Promise((resolve, reject) => {
+  resolve(start());
+});

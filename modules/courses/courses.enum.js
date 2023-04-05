@@ -1,8 +1,5 @@
-
-const types = {
-  qa: "QA",
-  aqa: "AQA",
-  eng: "ENG"
+export const types = {
+  QA: "QA",
+  AQA: "AQA",
+  ENG: "ENG",
 };
-
-export default types;
