@@ -1,11 +1,24 @@
-export default class ErrorInterceptor {
+import { errorMessages } from "./error.mes.js";
+
+export class ErrorInterceptor {
   static defaultInterceptor(err, req, errorCode) {
+    function chooseMessage() {
+      const messages = Object.values(errorMessages);
+      let messagesCheck;
+      messages.forEach((el) => {
+        if (messages.includes(err.message)) {
+          messagesCheck = err.message;
+        } else {
+          messagesCheck = errorMessages.defaultMessage;
+        }
+      });
+      return messagesCheck;
+    }
+    const errorText = chooseMessage();
     return {
       reqId: req.uuidv4,
-      message: err.message,
-      fact: err.fact || "Nothing special today.",
+      message: errorText,
+      fact: err.fact || errorMessages.factMessage,
     };
   }
 }
-
-//"Something went wrong. Please check your request and try again"

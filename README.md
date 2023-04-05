@@ -1,6 +1,6 @@
 # Simple Courses API
 
-This API allows you to find QA, AQA and English courses for your study.
+This API allows you to find QA, AQA, and English courses for your study.
 
 The API is available at `...`
 
@@ -16,22 +16,22 @@ The API is available at `...`
 
 **`GET /courses`**
 
-Returns the list of courses from all categories. 
+Returns the list of courses from all categories.
 
 **Parameters**
 
-| Name        | Type    | In    | Required | Description                                                                                                                                          |
-| ----------- | ------- | ----- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`  | integer  | query | No       | Specifies the number of result you want to be returned. Must be a positive number between 1 and 75. By default, only 10 courses will be displayed. |
-| `skip`   | integer | query | No       | Specifies the number of results you want to skip. Must be number between 1 and 75. By default, it will be dispayed first 10 courses.  |
-| `filter` | string | query | No       | Specifies the category of courses you want to be returned. It can use all or only some of: type (QA, AQA, ENG), free(true or false), author(name of author). Parameters should be comma separated. Example: `type:QA,free:false,author:Author` |
+| Name     | Type    | In    | Required | Description                                                                                                                                                                                                                                            |
+| -------- | ------- | ----- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `limit`  | integer | query | No       | Specifies the number of results you want to be returned. Must be a positive number between 1 and 75. By default, only 10 courses will be displayed.                                                                                                    |
+| `skip`   | integer | query | No       | Specifies the number of results you want to skip. Must be a number between 1 and 75. By default, it will be displayed first 10 courses.                                                                                                                |
+| `filter` | string  | query | No       | Specifies the category of courses you want to be returned. It can use all or only some of the types (QA, AQA, ENG), free(true or false), and author(name of author). Parameters should be comma separated. Example: `type:QA,free:false,author:Author` |
 
 **Status codes**
 
-| Status code | Description |
-|-----------------|-----------------------------------------------------|
-| 200 OK | Indicates a successful response. |
-| 404 No Found | Indicates that the parameters provided are invalid. |
+| Status code   | Description                                         |
+| ------------- | --------------------------------------------------- |
+| 200 OK        | Indicates a successful response.                    |
+| 404 Not Found | Indicates that the parameters provided are invalid. |
 
 Example response:
 
@@ -54,22 +54,21 @@ Example response:
 
 ### Get a course by ID
 
-**`GET /products/:id`**
+**`GET /courses/:id`**
 
 Returns a single course by its ID.
 
 **Parameters**
 
-| Name            | Type    | In    | Required | Description                                      |
-| --------------- | ------- | ----- | -------- | ------------------------------------------------ |
-| `id`     | string | path  | Yes      | Specifies the course's id you wish to retrieve. |
-
+| Name | Type   | In   | Required | Description                                     |
+| ---- | ------ | ---- | -------- | ----------------------------------------------- |
+| `id` | string | path | Yes      | Specifies the course's id you wish to retrieve. |
 
 **Status codes**
 
-| Status code   | Description                                               |
-| ------------- | --------------------------------------------------------- |
-| 200 OK        | Indicates a successful response.                          |
+| Status code   | Description                                              |
+| ------------- | -------------------------------------------------------- |
+| 200 OK        | Indicates a successful response.                         |
 | 404 Not found | Indicates that there is no course with the specified id. |
 
 Example response:
@@ -90,7 +89,7 @@ Example response:
 
 ### Create a course
 
-To create a new course.
+Creating a new course.
 
 **`POST /courses`**
 
@@ -100,13 +99,13 @@ Creates a new course and returns the data of this new course in the response bod
 
 The request body needs to be in JSON format.
 
-| Name            | Type    | In    | Required | Description                                      |
-| --------------- | ------- | ----- | -------- | ------------------------------------------------ |
-| `author`     | string | body  | Yes      | An author of the course. Must be a string with length between 1 and 50. |
-| `title`     | string | body  | Yes      | A title of the course. Must be a string with length between 1 and 355. |
-| `site`     | string | body  | Yes      | A resource of the course. Must be a string with length between 1 and 355. |
-| `type`     | string | body  | Yes      | A category of the course. Should be one of these: "AQA", "QA", "ENG". |
-| `isFree`     | boolean | body  | No      | An information is this course free or not. By default get null. |
+| Name     | Type    | In   | Required | Description                                                                 |
+| -------- | ------- | ---- | -------- | --------------------------------------------------------------------------- |
+| `author` | string  | body | Yes      | An author of the course. Must be a string with a length between 1 and 50.   |
+| `title`  | string  | body | Yes      | A title of the course. Must be a string with a length between 1 and 355.    |
+| `site`   | string  | body | Yes      | A resource of the course. Must be a string with a length between 1 and 355. |
+| `type`   | string  | body | Yes      | A category of the course. Should be one of these: "AQA", "QA", "ENG".       |
+| `isFree` | boolean | body | No       | An information is this course free or not. By default get null.             |
 
 Example request body:
 
@@ -122,11 +121,11 @@ Example request body:
 
 **Status codes**
 
-| Status code | Description                                            |
-| ----------- | ------------------------------------------------------ |
-| 201 Created | Indicates that the cart has been created successfully. |
-| 400 Bad request | Indicates that there are some problems with a request body. |
-
+| Status code     | Description                                              |
+| --------------- | -------------------------------------------------------- |
+| 201 Created     | Indicates that the course has been created successfully. |
+| 404 Not found   | The course could not be found.                           |
+| 400 Bad request | Some problems with a request body.                       |
 
 ### Update a course
 
@@ -138,13 +137,13 @@ The request body needs to be in JSON format.
 
 **Parameters**
 
-| Name            | Type    | In    | Required | Description                                      |
-| --------------- | ------- | ----- | -------- | ------------------------------------------------ |
-| `author`     | string | body  | Yes      | An author of the course. Must be a string with length between 1 and 50. |
-| `title`     | string | body  | Yes      | A title of the course. Must be a string with length between 1 and 355. |
-| `site`     | string | body  | Yes      | A resource of the course. Must be a string with length between 1 and 355. |
-| `type`     | string | body  | Yes      | A category of the course. Should be one of these: "AQA", "QA", "ENG". |
-| `isFree`     | boolean | body  | No      | An information is this course free or not. By default get null. |
+| Name     | Type    | In   | Required | Description                                                                 |
+| -------- | ------- | ---- | -------- | --------------------------------------------------------------------------- |
+| `author` | string  | body | Yes      | An author of the course. Must be a string with a length between 1 and 50.   |
+| `title`  | string  | body | Yes      | A title of the course. Must be a string with a length between 1 and 355.    |
+| `site`   | string  | body | Yes      | A resource of the course. Must be a string with a length between 1 and 355. |
+| `type`   | string  | body | Yes      | A category of the course. Should be one of these: "AQA", "QA", "ENG".       |
+| `isFree` | boolean | body | No       | An information is this course free or not. By default get null.             |
 
 Example request body:
 
@@ -160,10 +159,11 @@ Example request body:
 
 **Status codes**
 
-| Status code     | Description                                                    |
-| --------------- | -------------------------------------------------------------- |
-| 200 OK  | Indicates that the course has been updated successfully.         |
-| 404 Not found   | The course could not be found or some problems with a request body. |
+| Status code     | Description                                              |
+| --------------- | -------------------------------------------------------- |
+| 200 OK          | Indicates that the course has been updated successfully. |
+| 404 Not found   | The course could not be found.                           |
+| 400 Bad request | Some problems with a request body.                       |
 
 ### Delete a course
 
@@ -173,30 +173,30 @@ Deletes a course by ID. Some types of courses can't be deleted.
 
 **Parameters**
 
-| Name        | Type   | In   | Required | Description             |
-| ----------- | ------ | ---- | -------- | ----------------------- |
-| `id`    | string | path | Yes      | Specifies the course id.  |
-
+| Name | Type   | In   | Required | Description              |
+| ---- | ------ | ---- | -------- | ------------------------ |
+| `id` | string | path | Yes      | Specifies the course id. |
 
 **Status codes**
 
-| Status code    | Description                                            |
-| -------------- | ------------------------------------------------------ |
-| 200 OK | Indicates that the item has been deleted successfully. |
-| 404 Not found  | The course could not be found.               |
+| Status code   | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| 200 OK        | Indicates that the item has been deleted successfully. |
+| 404 Not found | The course could not be found.                         |
 
 Example response:
 
 ```
 {
     "reqId": "186db6cbce00.0ca9ba202df4e",
-    "message": "Course was successfuly deleted"
+    "message": "Course was deleted successfully"
 }
 ```
 
 ### Technologies Used
-* [NodeJS](https://nodejs.org/) 
-* [ExpressJS](https://www.expresjs.org/) 
-* [MongoDB](https://www.mongodb.com/) 
-* [Mongoose ODM](https://mongoosejs.com/) 
-* [Axios](https://www.npmjs.com/package/axios)
+
+- [NodeJS](https://nodejs.org/)
+- [ExpressJS](https://www.expresjs.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose ODM](https://mongoosejs.com/)
+- [Axios](https://www.npmjs.com/package/axios)
